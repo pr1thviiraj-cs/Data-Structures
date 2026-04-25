@@ -7,14 +7,14 @@
 #define OVERFLOW_THRESHOLD 95.0
 #define SHORTAGE_THRESHOLD 20.0
 
-// Structure to store daily water level data
+
 typedef struct {
     int day;
     float waterLevel;
     char status[20];
 } DailyRecord;
 
-// Structure to store tank information
+
 typedef struct {
     char tankName[50];
     float capacity;
@@ -47,7 +47,7 @@ int main() {
         
         switch(choice) {
             case 1:
-                // Create new tank
+                
                 if(tankCount < MAX_TANKS) {
                     printf("\nEnter tank name (e.g., Hostel-A, House-1): ");
                     scanf("%s", tanks[tankCount].tankName);
@@ -62,7 +62,7 @@ int main() {
                 break;
                 
             case 2:
-                // Add daily water level
+                
                 if(tankCount == 0) {
                     printf("\n✗ No tanks available. Please create a tank first.\n");
                     break;
@@ -82,7 +82,7 @@ int main() {
                 break;
                 
             case 3:
-                // Display daily levels
+                
                 if(tankCount == 0) {
                     printf("\n✗ No tanks available.\n");
                     break;
@@ -98,7 +98,7 @@ int main() {
                 break;
                 
             case 4:
-                // Detect overflow condition
+                
                 if(tankCount == 0) {
                     printf("\n✗ No tanks available.\n");
                     break;
@@ -114,7 +114,7 @@ int main() {
                 break;
                 
             case 5:
-                // Show average usage
+                
                 if(tankCount == 0) {
                     printf("\n✗ No tanks available.\n");
                     break;
@@ -141,7 +141,7 @@ int main() {
     return 0;
 }
 
-// Function to display menu
+// Function menu
 void displayMenu() {
     printf("\n========================================\n");
     printf("              MAIN MENU\n");
@@ -155,7 +155,7 @@ void displayMenu() {
     printf("========================================\n");
 }
 
-// Function to initialize tank
+// Initialization of tank
 void initializeTank(WaterTank *tank) {
     tank->recordCount = 0;
     for(int i = 0; i < MAX_DAYS; i++) {
@@ -165,7 +165,7 @@ void initializeTank(WaterTank *tank) {
     }
 }
 
-// Function to check status based on water level percentage
+// Function Water Level Stats
 void checkStatus(float level, char *status) {
     if(level >= OVERFLOW_THRESHOLD) {
         strcpy(status, "OVERFLOW RISK!");
@@ -176,7 +176,8 @@ void checkStatus(float level, char *status) {
     }
 }
 
-// Function to add daily water level
+
+
 void addDailyLevel(WaterTank *tank) {
     if(tank->recordCount >= MAX_DAYS) {
         printf("\n✗ Maximum record limit reached for this tank!\n");
@@ -193,10 +194,10 @@ void addDailyLevel(WaterTank *tank) {
     printf("Enter current water level (in liters): ");
     scanf("%f", &currentLevel);
     
-    // Calculate percentage
+    
     percentage = (currentLevel / tank->capacity) * 100.0;
     
-    // Store record
+   
     tank->records[tank->recordCount].day = day;
     tank->records[tank->recordCount].waterLevel = percentage;
     checkStatus(percentage, tank->records[tank->recordCount].status);
@@ -208,7 +209,7 @@ void addDailyLevel(WaterTank *tank) {
     tank->recordCount++;
 }
 
-// Function to display all daily water levels
+
 void displayDailyLevels(WaterTank *tank) {
     if(tank->recordCount == 0) {
         printf("\n✗ No records available for tank: %s\n", tank->tankName);
@@ -230,7 +231,7 @@ void displayDailyLevels(WaterTank *tank) {
     printf("========================================\n");
 }
 
-// Function to detect overflow or shortage conditions
+
 void detectOverflowCondition(WaterTank *tank) {
     if(tank->recordCount == 0) {
         printf("\n✗ No records available for analysis.\n");
@@ -267,7 +268,7 @@ void detectOverflowCondition(WaterTank *tank) {
     printf("========================================\n");
 }
 
-// Function to calculate and show average water usage
+
 void showAverageUsage(WaterTank *tank) {
     if(tank->recordCount == 0) {
         printf("\n✗ No records available for calculation.\n");
@@ -278,7 +279,7 @@ void showAverageUsage(WaterTank *tank) {
     float maxLevel = tank->records[0].waterLevel;
     float minLevel = tank->records[0].waterLevel;
     
-    // Calculate total, max, and min
+    
     for(int i = 0; i < tank->recordCount; i++) {
         totalLevel += tank->records[i].waterLevel;
         
@@ -303,7 +304,7 @@ void showAverageUsage(WaterTank *tank) {
     printf("Minimum Water Level: %.2f%%\n", minLevel);
     printf("----------------------------------------\n");
     
-    // Provide recommendation
+   
     if(average >= 70.0) {
         printf("💧 Status: Good water availability\n");
     } else if(average >= 40.0) {
